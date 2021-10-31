@@ -26,19 +26,20 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.sequelize
-.authenticate()
-.then(() => {
-  console.log('Connection has been established successfully.');
-})
-.catch(err => {
-  console.log('Unable to connect to the database: ', err);
-});
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.log('Unable to connect to the database: ', err);
+  });
 
 
-db.Teacher = require('./teacher')(sequelize, Sequelize);
-db.Class = require('./class')(sequelize, Sequelize);
+// db.Teacher = require('./teacher')(sequelize, Sequelize);
+// db.Class = require('./class')(sequelize, Sequelize);
 
-
+db.Admin = require('./admin')(sequelize, Sequelize);
+db.Board = require('./board')(sequelize, Sequelize);
 
 db.secret = '(9*)5$&!3%^0%^@@2$1!#5@2!4';
 module.exports = db;
