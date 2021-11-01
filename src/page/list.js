@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import './main.css';
 
+import { Search } from './index.js';
+
 import axios from 'axios';
+import queryString from 'query-string';
+import {Link} from 'react-router-dom';
 
 class list extends Component {
   constructor(props) {
@@ -11,6 +15,7 @@ class list extends Component {
       page: 1,
       limit: 10,
       all_page: [],
+      search: '',
     }
   }
 
@@ -21,27 +26,43 @@ class list extends Component {
 
   _getListData = async function () {
     const { limit } = this.state;
+    const page = this._setPage();
 
-    const total_cnt = await axios('/get/board_cnt');
-    console.log(total_cnt.data.cnt);
+    let {category} = this.props;
+    if(sessionStorage.getItem('category')){
+      category = sessionStorage.getItem('category');
+    }
+
+    let search = queryString.parse(this.props.location.search);
+    if (search) {
+      search = search.search;
+    }
+
+    const total_cnt = await axios('/get/board_cnt', {
+      method: 'POST',
+      data: { search: search, category: category },
+      headers: new Headers()
+    });
 
     const total_list = await axios('/get/board', {
-      method: 'GET',
-      headers: new Headers()
+      method: 'POST',
+      data: { limit: limit, page: page, search: search, category: category },
+      headers: new Headers(),
     })
 
     let page_arr = [];
     for (let i = 1; i <= Math.ceil(total_cnt.data.cnt / limit); i++) {
       page_arr.push(i);
     }
-    console.log(page_arr);
 
-    this.setState({ data: total_list, all_page: page_arr })
+    this.setState({ data: total_list, all_page: page_arr, search: search })
   }
 
   _changePage = function (el) {
     this.setState({ page: el })
     sessionStorage.setItem('page', el)
+
+    return this._getListData();
   }
   _setPage = function () {
     if (sessionStorage.page) {
@@ -55,7 +76,7 @@ class list extends Component {
 
   render() {
     const list = this.state.data.data
-    const { all_page, page } = this.state;
+    const { all_page, page, search } = this.state;
 
     return (
       <div className='List'>
@@ -66,16 +87,22 @@ class list extends Component {
           <div className='acenter'> 날짜 </div>
         </div>
 
-        {list ? list.map((el, key) => {
+        {list && list.length > 0 ? list.map((el, key) => {
+          const view_url = '/view/' + el.board_id;
           return (
             <div className='list_grid list_data' key={key}>
-              <div> {el.title} </div>
+              <div> <Link to={view_url}> {el.title} </Link> </div>
               <div> </div>
               <div className='acenter'> {el.date.slice(0, 10)} </div>
             </div>
           )
         })
-          : null}
+          : <div className='not_data acenter'>
+            {search !== "" ? <div> 검색된 결과가 없습니다. </div> // 검색 사용
+              : <div> 데이터가 없습니다. </div> // 검색 사용 X
+            }
+          </div>}
+
         <div className='paging_div'>
           <div> </div>
           <div>
@@ -88,6 +115,7 @@ class list extends Component {
               })
                 : null}
             </ul>
+            <Search search={search} />
           </div>
           <div> </div>
         </div>

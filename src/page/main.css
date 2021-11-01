@@ -1,6 +1,7 @@
 .Mains {
   display: grid;
   grid-template-columns: 19% 62% 19%;
+  min-height: 600px;
 }
 
 #Mains-left { border-right: solid 1px #aabbaa; }
@@ -11,7 +12,8 @@
   padding-left: 30px;
 }
 
-.Write div {
+/* .write div 수정 */
+.Write #Title {
   margin-top: 30px;
   margin-left: 50px;
 }
@@ -29,11 +31,11 @@
   width: 91%;
   resize: none;
   border: none;
-  height: 500px
+  min-height: 400px;
 }
 
 #content_txt:focus { outline : none; }
-#title_txt:focus { outline: none; }
+#title_txt:focus { outline : none; }
 
 #post_submit {
   text-align: center;
@@ -49,6 +51,10 @@
   background-color: white;
 }
 
+.Home {
+  padding: 15px;
+}
+
 .List {
   padding: 30px;
   margin-left: 20px;
@@ -59,6 +65,7 @@
 .list_tit {
   border-bottom: solid 1px #ababab;
   color : #ababab;
+  padding-bottom: 10px;
 }
 
 .list_grid {
@@ -92,4 +99,175 @@
   list-style: none;
   display : inline-block;
   cursor: pointer;
+}
+
+.search_input {
+  padding: 2px;
+  margin-right: 5px;
+  margin-top: 15px;
+  width: 50%;
+}
+
+.serach_submit {
+  position: absolute;
+  margin-top: 14px;
+  cursor: pointer;
+}
+
+.not_data {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #ababab;
+}
+
+.date_div {
+  text-align: right;
+  font-size: 14px;
+  color: #ababab;
+  margin-bottom: 10px;
+  padding-right: 10px;
+}
+
+.top_title #title_txt {
+  border: none;
+  padding-bottom: 0px;
+}
+
+.top_title {
+  border-bottom: solid 1px #ababab;
+}
+
+.Category {
+  padding-left: 5px;
+  padding-right: 20px;
+}
+
+.Category ul { line-height: 40px; }
+.Category ul li { list-style: none; }
+.Category ul li a { list-style: none; color : black; text-decoration: none; }
+.Category ul li .pre_cat { font-weight: bold; color : teal }
+
+.Edit {
+  position: absolute;
+  margin : 10px 0px 0px 15px;
+  padding: 1px 8px 1px 7px;
+  border-radius: 4px;
+  color: #ababab;
+  background-color: #fff;
+  border-color: #ababab;
+  cursor: pointer;
+}
+
+.remove_icon {
+  position: absolute;
+  width: 15px;
+  margin-top: 14px;
+  cursor: pointer;
+}
+.edit_input { 
+  width: 70%;
+  margin-left: 25px;
+}
+
+.modify_icon {
+  position: absolute;
+  width: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.CKEditor {
+  margin-top : 20px;
+  margin-left: 50px;
+  width: 86.3%;
+}
+
+.View {
+  padding: 50px 70px 0px 70px;
+}
+
+.btn_list {
+  list-style : none;
+  width: 80%;
+}
+
+.btn_list li {
+  float: left;
+  margin-right: 20px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#signup_title {
+  color: #ababab;
+  position: absolute;
+  margin-left: 50px;
+  margin-top: 40px
+}
+
+.Signup {
+  padding: 70px 0px 0px 0%;
+  display: grid;
+  grid-template-columns: 50% auto;
+}
+
+.Signup div {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.Signup div input { padding: 3px; }
+
+input[name=signup_birthday] { width: 80px; }
+input[name=signup_sex] { width: 10px; margin-left: 5px;}
+input[name=signup_email] { width : 120px }
+select[name=signup_email_select] { padding: 3px; margin-left: 5px; }
+
+input[name=sigunup_submit] { 
+  margin : 13% 54% 0% 46%; 
+  padding: 5px 10px 5px 10px;
+  border-radius: 2px;
+  border: solid 1px #ababab;
+  background-color: white; 
+  cursor: pointer;
+}
+
+#signup_section { border-left: solid 1px #ababab; }
+
+input[name=signup_email_write] {
+  padding: 3px;
+  position: absolute;
+  margin-top: -30px;
+  margin-left: 27px;
+  width: 10%;
+}
+
+.select_category_div { margin: 50px 0px 0px 30%; line-height: 0px; }
+.select_category_div select { padding: 3px; margin-top: -5px; }
+
+.write_option_div {
+  margin-left: 87%;
+}
+
+.write_option_div input, #view_list_button {
+  margin-right: 10px;
+  padding: 3px 7px 3px 7px;
+  border-radius: 2px;
+  border : solid 1px #ababab;
+  cursor: pointer;
+  background-color: white;
+}
+#view_list_button{
+  position: absolute;
+  margin-left: 50.5%;
+  margin-top: -40px;
+  margin-right: 10px;
+}
+
+.other_div { 
+  margin-top: 300px; 
+  border-top: solid 1px #ababab;
+  display: grid;
+  grid-template-columns: 25% 40% 25%;
 }
