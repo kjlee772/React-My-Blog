@@ -1,94 +1,28 @@
 import React, { Component } from 'react';
 import './main.css';
+import { Link } from 'react-router-dom';
 
 import { Search } from './index.js';
 
-import axios from 'axios';
-import queryString from 'query-string';
-import {Link} from 'react-router-dom';
-
 class list extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      data: [],
-      page: 1,
-      limit: 10,
-      all_page: [],
-      search: '',
-    }
-  }
-
-  componentDidMount() {
-    this._getListData();
-    this._setPage();
-  }
-
-  _getListData = async function () {
-    const { limit } = this.state;
-    const page = this._setPage();
-
-    let {category} = this.props;
-    if(sessionStorage.getItem('category')){
-      category = sessionStorage.getItem('category');
-    }
-
-    let search = queryString.parse(this.props.location.search);
-    if (search) {
-      search = search.search;
-    }
-
-    const total_cnt = await axios('/get/board_cnt', {
-      method: 'POST',
-      data: { search: search, category: category },
-      headers: new Headers()
-    });
-
-    const total_list = await axios('/get/board', {
-      method: 'POST',
-      data: { limit: limit, page: page, search: search, category: category },
-      headers: new Headers(),
-    })
-
-    let page_arr = [];
-    for (let i = 1; i <= Math.ceil(total_cnt.data.cnt / limit); i++) {
-      page_arr.push(i);
-    }
-
-    this.setState({ data: total_list, all_page: page_arr, search: search })
-  }
-
-  _changePage = function (el) {
-    this.setState({ page: el })
-    sessionStorage.setItem('page', el)
-
-    return this._getListData();
-  }
-  _setPage = function () {
-    if (sessionStorage.page) {
-      this.setState({ page: Number(sessionStorage.page) })
-      return Number(sessionStorage.page);
-    }
-
-    this.setState({ page: 1 })
-    return 1;
-  }
 
   render() {
-    const list = this.state.data.data
-    const { all_page, page, search } = this.state;
+    const {
+      list_data, list_all_page, list_search, list_page, _changePage
+    } = this.props;
 
     return (
       <div className='List'>
-
         <div className='list_grid list_tit'>
           <div> 제목 </div>
           <div> 조회수 </div>
           <div className='acenter'> 날짜 </div>
         </div>
 
-        {list && list.length > 0 ? list.map((el, key) => {
+        {/* data && data.length > 0 ? data.map( (el, key) => { */}
+        {list_data !== "[]" && list_data.length > 0 ? JSON.parse(list_data).map((el, key) => {
           const view_url = '/view/' + el.board_id;
+
           return (
             <div className='list_grid list_data' key={key}>
               <div> <Link to={view_url}> {el.title} </Link> </div>
@@ -98,27 +32,44 @@ class list extends Component {
           )
         })
           : <div className='not_data acenter'>
-            {search !== "" ? <div> 검색된 결과가 없습니다. </div> // 검색 사용
+            {/* search !== "" */}
+            {list_search && list_search !== ""
+              ? <div> 검색된 결과가 없습니다. </div> // 검색 사용
               : <div> 데이터가 없습니다. </div> // 검색 사용 X
             }
-          </div>}
+          </div>
+        }
 
         <div className='paging_div'>
           <div> </div>
           <div>
             <ul>
-              {all_page ? all_page.map((el, key) => {
+              {/* all_page ? all_page.map( (el, key) => { */}
+              {list_all_page ? list_all_page.map((el, key) => {
                 return (
-                  el === page ? <li key={key} className='page_num'> <b> {el} </b> </li>
-                    : <li key={key} className='page_num' onClick={() => this._changePage(el)}> {el} </li>
+                  /* el === page ? */
+                  el === list_page ? <li key={key} className='page_num'>
+                    <b> {el} </b>
+                  </li>
+
+                    /* <li key={key} className='page_num' 
+                    onClick={() => this._changePage(el)}> {el} 
+                    </li> */
+                    : <li key={key} className='page_num'
+                      onClick={() => _changePage(el)}> {el}
+                    </li>
                 )
               })
+
                 : null}
             </ul>
-            <Search search={search} />
+            <Search
+              search={list_search}
+            />
           </div>
           <div> </div>
         </div>
+
       </div>
     );
   }

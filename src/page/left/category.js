@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import '../main.css';
-
 import { Link } from 'react-router-dom';
+
+import default_profile_img from './my_img.jpg';
+
 import axios from 'axios';
 
 class category extends Component {
@@ -67,26 +69,24 @@ class category extends Component {
       }
 
       if (window.confirm(category.name + ' 의 이름을 \n' + modify_name + ' 으로 수정하시겠습니까?')) {
-
         const data = { id: category.id, name: modify_name }
         const modify = await axios('/modify/category', {
           method: 'POST',
           data: data,
           headers: new Headers()
         })
-
         alert(modify.data.msg);
         this._getCategoryData();
       }
-
-    } else {
+    }
+    else {
       return alert('변경할 카테고리의 이름을 최소 1 글자 이상 입력해주세요.');
     }
   }
 
   render() {
     const { category, edit } = this.state;
-    const { _changeCategory, login, admin, user_ip } = this.props;
+    const { _changeCategory} = this.props;
 
     let pre_cat = '';
     if (sessionStorage.getItem('category')) {
@@ -94,15 +94,18 @@ class category extends Component {
     }
     return (
       <div className='Category'>
-        <ul>
+        <div style={{textAlign:'center', overflow:'hidden'}}>
+          <img style={{maxWidth:'100%',height:'auto', display:'block', margin:'0px auto'}} src={default_profile_img} width='224px' height='268px' alt='profile_img' />
+          <p style={{margin:'0px', fontSize:'25px'}} ><Link to='/write'> 포스트 작성 </Link></p>
+        </div>
+        <ul style={{marginLeft:'-30px'}}>
           <li>
             <Link className={pre_cat === '' ? "pre_cat" : null} to='/' onClick={() => _changeCategory('')}>
               전체 보기
             </Link>
-            {login && admin === 'Y' && user_ip === '192.168.0.26'
-              ? !edit ? <input type='button' value='Edit' className='Edit' onClick={() => this.setState({ edit: !edit })} />
+            {!edit ? <input type='button' value='Edit' className='Edit' onClick={() => this.setState({ edit: !edit })} />
                 : <input type='button' value='Add' className='Edit' onClick={() => this._addCategory()} />
-              : null}
+            }
             <hr />
           </li>
           {category.length > 0 ?

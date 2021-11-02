@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import './main.css';
-
 import { Route, Switch } from 'react-router-dom';
-import { List, Write, View, Signup } from './index.js';
 
-import { Right_Write } from './right/index.js';
 import { Category } from './left/index.js';
+import { Right_Write } from './right/index.js';
+import { List, Write, View, } from './index.js';
+
+import axios from 'axios';
 
 class main extends Component {
   constructor(props) {
@@ -13,19 +14,9 @@ class main extends Component {
     this.state = {
       category: '',
       category_change: false,
-      contents: '',
-      title: '',
+      contents: "",
+      title: ""
     }
-  }
-
-  _fixCategory = function () {
-    const category = sessionStorage.getItem('category');
-    this.setState({ category: category });
-  }
-
-  _changeCategory = (target) => {
-    this.setState({ category: target });
-    sessionStorage.setItem('category', target);
   }
 
   _withProps = function (Component, props) {
@@ -33,6 +24,7 @@ class main extends Component {
       return <Component {...props} {...matchProps} />
     }
   }
+
   _changeState = () => {
     this.setState({ category_change: true })
   }
@@ -42,34 +34,57 @@ class main extends Component {
 
     this.setState({ contents: contents })
   }
+
   _getTitles = () => {
     const title = document.getElementsByName('title')[0].value.trim();
 
     this.setState({ title: title })
   }
 
+  _getModifyData = async (board_id) => {
+    const getData = await axios('/get/board_data', {
+      method: 'POST',
+      headers: new Headers(),
+      data: { id: board_id }
+    });
+
+    this.setState({
+      title: getData.data.data[0].title,
+      contents: getData.data.data[0].contents
+    })
+  }
+
   render() {
-    const { _changeCategory, _changeState, _getContents, _getTitles } = this;
+    const { _changeState, _getContents, _getTitles, _getModifyData } = this;
     const { contents, title } = this.state;
-    const { login, admin, user_ip, category_data, select_category, _selectCategoryData } = this.props;
+    const {
+      list_data, list_all_page, list_search, list_page, _changePage,
+      _changeCategory, user_id, _getData,
+      data, date, pre_view, next_view, _getPreAndNextData,
+      category_data, select_category, _selectCategoryData,
+      reply_data, reply_num, _getReplyData, reply_all_page, reply_page, reply_limit,
+      reply_pre_block, reply_next_block, reply_block, reply_block_limit
+    } = this.props;
 
     return (
       <div className='Mains'>
         <div id='Mains-left'>
-          {/* 변경 전 <Route path='/' component={Category} exact/> */}
-
           <Category _changeCategory={_changeCategory}
-            login={login}
             _changeState={_changeState}
-            admin={admin}
-            user_ip={user_ip}
             exact />
         </div>
 
         <div>
           <Switch>
             <Route path='/'
-              component={this._withProps(List, { category: this.state.category })}
+              component={this._withProps(List, {
+                category: this.state.category,
+                list_data: list_data,
+                list_all_page: list_all_page,
+                list_search: list_search,
+                list_page: list_page,
+                _changePage: _changePage
+              })}
               exact />
           </Switch>
 
@@ -78,9 +93,9 @@ class main extends Component {
               _getContents: _getContents,
               _getTitles: _getTitles,
               contents: contents,
-              title: title
+              title: title,
+              _getModifyData: _getModifyData
             })} />
-
 
           <Route path='/write'
             component={this._withProps(Write, {
@@ -90,13 +105,26 @@ class main extends Component {
               title: title
             })} exact />
 
-          <Route path='/signup'
-            component={Signup}
-          />
-
           <Route path='/view/:data'
             component={this._withProps(View, {
-              admin: admin
+              user_id: user_id,
+              data: data,
+              date: date,
+              _getData: _getData,
+              pre_view: pre_view,
+              next_view: next_view,
+              _getPreAndNextData: _getPreAndNextData,
+              reply_data: reply_data,
+              reply_num: reply_num,
+              _getReplyData: _getReplyData,
+              _changePage: _changePage,
+              reply_all_page: reply_all_page,
+              reply_page: reply_page,
+              reply_limit: reply_limit,
+              reply_pre_block: reply_pre_block,
+              reply_next_block: reply_next_block,
+              reply_block: reply_block,
+              reply_block_limit: reply_block_limit,
             })} />
         </div>
 

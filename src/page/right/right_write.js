@@ -76,6 +76,7 @@ class right_write extends Component {
     return (
       <div>
         <div className='select_category_div'>
+          <h5> 카테고리 선택 </h5>
           <select name='select_category' onChange={() => _selectCategoryData()}
             value={select_category}
           >
@@ -88,7 +89,6 @@ class right_write extends Component {
                   </option>
                 )
               })
-
               : null}
           </select>
         </div>
