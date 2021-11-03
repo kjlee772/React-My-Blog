@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { browserHistory } from 'react-router';
 import queryString from 'query-string';
 
 import { Head } from './inc'
@@ -192,11 +193,6 @@ class App extends Component {
     })
   }
 
-  // // like 여부 확인
-  // _getLikeExist = (boo) => {
-  //   this.setState({ like_exist: boo })
-  // }
-
   _getReplyData = async (board_id) => {
     var reply_page = 1;
     if (sessionStorage.getItem('reply')) {
@@ -298,7 +294,6 @@ class App extends Component {
     const reply_session = { reply_page: reply_page, board_id: board_id }
     sessionStorage.setItem('reply', JSON.stringify(reply_session));
 
-
     return this._getReplyData(board_id)
   }
 
@@ -312,21 +307,19 @@ class App extends Component {
     } = this.state;
 
     const {
-      _getSearch, _changePage,
+      _changePage,
       _changeCategory, _getData, _getPreAndNextData,
       _selectCategoryData, _getReplyData
     } = this;
 
-
     return (
-      <div>
+      <div style={{height:'100%', fontFamily:'retro'}}>
         <div>
           <Head />
         </div>
 
-        <div>
+        <div style={{height:'100%'}}>
           <Main
-            _getSearch={_getSearch}
             list_data={list_data}
             list_all_page={list_all_page}
             list_search={list_search}

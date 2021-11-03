@@ -49,3 +49,9 @@
 .submit_div div input {
   cursor: pointer;
 }
+
+
+@font-face {
+  font-family: "retro";
+  src: url("./font/retro.ttf");
+}

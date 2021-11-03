@@ -86,7 +86,7 @@ class category extends Component {
 
   render() {
     const { category, edit } = this.state;
-    const { _changeCategory} = this.props;
+    const { _changeCategory } = this.props;
 
     let pre_cat = '';
     if (sessionStorage.getItem('category')) {
@@ -94,20 +94,22 @@ class category extends Component {
     }
     return (
       <div className='Category'>
-        <div style={{textAlign:'center', overflow:'hidden'}}>
-          <img style={{maxWidth:'100%',height:'auto', display:'block', margin:'0px auto'}} src={default_profile_img} width='224px' height='268px' alt='profile_img' />
-          <p style={{margin:'0px', fontSize:'25px'}} ><Link to='/write'> 포스트 작성 </Link></p>
+        <div style={{ textAlign: 'center', overflow: 'hidden' }}>
+          <img id='category_img' src={default_profile_img}  alt='profile_img' />
+          <Link to='/write'> <input id='category_write_button' type='button' value='글 쓰기' /> </Link>
         </div>
-        <ul style={{marginLeft:'-30px'}}>
-          <li>
+        <ul>
+          <li style={{ display: 'flex' }}>
             <Link className={pre_cat === '' ? "pre_cat" : null} to='/' onClick={() => _changeCategory('')}>
-              전체 보기
+              <span style={{ fontSize: '25px' }}>전체 보기</span>
             </Link>
-            {!edit ? <input type='button' value='Edit' className='Edit' onClick={() => this.setState({ edit: !edit })} />
-                : <input type='button' value='Add' className='Edit' onClick={() => this._addCategory()} />
-            }
-            <hr />
+            <div>
+              {!edit ? <input className='category_edit'  type='button' value='Edit' onClick={() => this.setState({ edit: !edit })} />
+                : <input className='category_edit' type='button' value='Done' onClick={() => this.setState({ edit: !edit })} />
+              }
+            </div>
           </li>
+          <hr />
           {category.length > 0 ?
             category.map((el, key) => {
               if (!edit) {
@@ -122,24 +124,20 @@ class category extends Component {
               else {
                 return (
                   <li key={key}>
-                    <img
-                      src='https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-x-mark-2.png&r=0&g=0&b=0'
-                      className='remove_icon'
-                      onClick={() => this._removeCategory(el)}
-                      alt="remove"
-                    />
-                    <input type='text' maxLength='20' className='edit_input' name={'modify_' + el.id} defaultValue={el.name} />
-                    <img
-                      src='https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2017/png/iconmonstr-check-mark-17.png&r=0&g=0&b=0'
-                      className='modify_icon'
-                      onClick={() => this._modifyCategory(el)}
-                      alt="modify"
-                    />
+                    <input id='category_modi' type='text' maxLength='20' name={'modify_' + el.id} defaultValue={el.name} />
+                    <input className='category_manage' type='button' value='삭제' onClick={() => this._removeCategory(el)} />
+                    <input className='category_manage' type='button' value='수정' onClick={() => this._modifyCategory(el)} />
                   </li>
                 )
               }
             })
-            : null}
+            : null
+          }
+          {!edit ? null :
+            <div style={{ textAlign: 'center' }}>
+              <input id='category_add' type='button' value='카테고리 추가' onClick={() => this._addCategory()} />
+            </div>
+          }
         </ul>
       </div>
     );

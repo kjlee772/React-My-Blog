@@ -116,8 +116,9 @@ module.exports = {
           contents: { [Op.like]: search },
           cat_id: { [Op.or]: { [Op.eq]: where_1, [Op.gt]: where_2 } }
         },
-        limit: (body.page * body.limit),
+        limit: body.limit,
         offset: (body.page - 1) * body.limit,
+
         order: sequelize.literal('board_id DESC')
       })
         .then(data => {
@@ -255,9 +256,6 @@ module.exports = {
             //attributes : ['id']
           }
         ],
-        where: { board_id: body.board_id },
-        limit: body.reply_limit,
-        offset: (body.reply_page - 1) * body.reply_limit,
       })
         .then((data_result) => {
           result['rows'] = data_result

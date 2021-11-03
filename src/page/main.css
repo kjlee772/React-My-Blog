@@ -1,147 +1,101 @@
-.Mains {
-  display: grid;
-  grid-template-columns: 19% 62% 19%;
-  min-height: 600px;
+/* ckeditor */
+#ckeditor{
+  margin-top: 10px;
 }
+/* ckeditor */
 
-#Mains-left { border-right: solid 1px #aabbaa; }
-#Mains-right { border-left: solid 1px #aabbaa; }
 
-.Write {
-  padding: 20px;
-  padding-left: 30px;
+
+/* header */
+#header_div{
+  text-align: center;
 }
-
-/* .write div 수정 */
-.Write #Title {
-  margin-top: 30px;
-  margin-left: 50px;
+#header_p{
+  font-size: 50px;
+  font-weight: bold;
+  margin: 0px;
+  padding-top: 10px;
 }
+/* header */
 
 
 
-.acenter { 
-  text-align : center; 
+/* category */
+#category_img{
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0px auto;
+  margin-bottom: 5px;
 }
-
-.btn_cursor {
-  cursor : pointer;
+#category_write_button{
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'retro';
+  background-color: red;
+  cursor: pointer;
 }
-
-.link_tit {
-  color : black;
-  text-decoration: none;
+.category_edit{
+  font-family: 'retro';
+  width: 55px;
+  margin-left: 30px;
+  background-color: #0D4C23;
+  color: white;
+  cursor: pointer;
+}
+.category_manage{
+  font-family: 'retro';
+}
+#category_modi{
+  width: 150px;
+  font-family: 'retro';
+}
+#category_add{
+  font-family: 'retro';
+  margin-left: 30px;
+  background-color: #0D4C23;
+  color: white;
   cursor: pointer;
 }
 
-.login_tit {
-  border-bottom: solid 1px #ababab;
-  padding-bottom : 20px
-}
+.Category ul { line-height: 40px; }
+.Category ul li { list-style: none; }
+.Category ul li a { list-style: none; color : black; text-decoration: none; }
+.Category ul li .pre_cat { font-weight: bold; color : #1404F4; }
+/* category */
 
-.modal_tools {
-  margin-top : -100px
-}
 
-.login_input_div p {
-  font-weight: bold;
-  margin-bottom : 8px;
-}
 
-.login_input_div input {
-  width: 85%;
-  padding: 4px;
-  margin-top: -10px;
-  margin-left: 10px;
-}
+/* right_write */
 
-.login_div {
-  text-align: left;
-  padding-left: 20px;
-}
+/* right_write */
 
-.submit_div {
-  margin-top: 10%;
-  margin-bottom: 43px;
-}
 
-.submit_div div {
-  text-align: center;
-}
 
-#title_txt {
-  width: 91%;
-  padding-bottom: 30px;
-  border: none;
-  font-size: 22px;
-  border-bottom: solid 1px #ababab;
-  font-weight: bold;
-}
-
-#content_txt {
-  width: 91%;
-  resize: none;
-  border: none;
-  min-height: 400px;
-}
-
-#content_txt:focus { outline : none; }
-#title_txt:focus { outline : none; }
-
-#post_submit {
-  text-align: center;
-  margin-top: 30px;
-}
-
-#post_submit button {
-  width: 120px;
-  padding: 5px;
-  border-radius: 5px;
-  border: solid 1px #ababab;
-  cursor: pointer;
-  background-color: white;
-}
-
-.Home {
-  padding: 15px;
-}
-
-.List {
+/* list */
+#list_container{
   padding: 30px;
   margin-left: 20px;
   margin-right: 20px;
-  min-height: 500px;
 }
-
-.list_tit {
-  border-bottom: solid 1px #ababab;
-  color : #ababab;
-  padding-bottom: 10px;
+#list_header{
+  display: flex;
+  margin-bottom: 20px;
 }
-
-.list_grid {
-  display: grid;
-  grid-template-columns: 70% 15% 15%;
+#list_title{
+  width: 80%;
+  color: #FC1CA6;
 }
-
-.list_data {
-  line-height: 40px;
-}
-
-.acenter {
+#list_date{
+  width: 20%;
+  color: #FC1CA6;
   text-align: center;
 }
-
-.paging_div {
-  margin-top: 10px;
-  border-top: solid 1px #ababab;
-  display: grid;
-  grid-template-columns: 25% 50% 25%;
-  text-align: center;
+.list_db_title{
+  width: 80%;
 }
-
-.paging_div div {
-  padding : 15px;
+.list_db_date{
+  width: 20%;
   text-align: center;
 }
 
@@ -151,399 +105,93 @@
   display : inline-block;
   cursor: pointer;
 }
+/* list */
 
+
+
+/* main */
+#main_{
+  border: 1px solid black;
+  border-bottom: 0px;
+  width: 60%;
+}
+/* main */
+
+
+
+/* search */
 .search_input {
-  padding: 2px;
-  margin-right: 5px;
-  margin-top: 15px;
   width: 50%;
 }
+/* search */
 
-.serach_submit {
-  position: absolute;
-  margin-top: 14px;
-  cursor: pointer;
+
+
+/* view */
+.top_title {
+  border-bottom: solid 1px #ababab;
 }
-
-.not_data {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  color: #ababab;
-}
-
-.date_div {
-  text-align: right;
-  font-size: 14px;
-  color: #ababab;
-  margin-bottom: 10px;
-  padding-right: 10px;
-}
-
 .top_title #title_txt {
   border: none;
   padding-bottom: 0px;
 }
-
-.top_title {
+#title_txt:focus { outline : none; }
+#title_txt {
+  width: 95%;
+  padding-bottom: 30px;
+  border: none;
+  font-size: 22px;
   border-bottom: solid 1px #ababab;
-}
-
-.Category {
-  padding-left: 5px;
-  padding-right: 20px;
-}
-
-.Category ul { line-height: 40px; }
-.Category ul li { list-style: none; }
-.Category ul li a { list-style: none; color : black; text-decoration: none; }
-.Category ul li .pre_cat { font-weight: bold; color : teal }
-
-.Edit {
-  position: absolute;
-  margin : 10px 0px 0px 15px;
-  padding: 1px 8px 1px 7px;
-  border-radius: 4px;
-  color: #ababab;
-  background-color: #fff;
-  border-color: #ababab;
-  cursor: pointer;
-}
-
-.remove_icon {
-  position: absolute;
-  width: 15px;
-  margin-top: 14px;
-  cursor: pointer;
-}
-.edit_input { 
-  width: 70%;
-  margin-left: 25px;
-}
-
-.modify_icon {
-  position: absolute;
-  width: 20px;
-  margin-top: 10px;
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-.CKEditor {
-  margin-top : 20px;
-  margin-left: 50px;
-  width: 86.3%;
-}
-
-.View {
-  padding: 50px 70px 0px 70px;
-}
-
-.btn_list {
-  list-style : none;
-  width: 80%;
-}
-
-.btn_list li {
-  float: left;
-  margin-right: 50px;
   font-weight: bold;
-  font-size: 14px;
+  font-family: 'retro';
 }
 
-#signup_title {
-  color: #ababab;
-  position: absolute;
-  margin-left: 50px;
-  margin-top: 40px
+#view_modi_button{
+  width: 46px;
+  height: 27px;
+  cursor: pointer;
 }
-
-.Signup {
-  padding: 70px 0px 0px 0%;
-  display: grid;
-  grid-template-columns: 50% auto;
+#view_del{
+  width: 50px;
+  height: 27px;
+  cursor: pointer;
 }
-
-.Signup div {
-  margin-top: 40px;
+#view_move{
+  padding-top: 10px;
+  display: flex;
   text-align: center;
+  margin-top: 150px;
+  border-top: 1px solid #ababab;
 }
-
-.Signup div input { padding: 3px; }
-
-input[name=signup_birthday] { width: 80px; }
-input[name=signup_sex] { width: 10px; margin-left: 5px;}
-input[name=signup_email] { width : 120px }
-select[name=signup_email_select] { padding: 3px; margin-left: 5px; }
-input[name=sigunup_submit] { 
-  margin : 13% 54% 0% 46%; 
-  padding: 5px 10px 5px 10px;
-  border-radius: 2px;
-  border: solid 1px #ababab;
-  background-color: white; 
-  cursor: pointer;
+.view_reply{
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #ababab;
+  margin-bottom: 10px;
 }
-input[name=signup_email_write] {
-  padding: 3px;
-  position: absolute;
-  margin-top: -30px;
-  margin-left: 27px;
-  width: 10%;
+/* view */
+
+
+
+/* write */
+#write_title{
+  width: 90%;
+  font-size: 40px;
+  padding-bottom: 15px;
+  border: none;
+  border-bottom: 1px solid #ababab;
+  font-family: 'retro';
 }
+/* write */
 
-#signup_section { border-left: solid 1px #ababab; }
 
-.search_user_info_div { 
-  margin-top: 30px; 
-  display: grid;
-  grid-template-columns: 50% 50%;
-  border-top: solid 1px #ababab;
-  color: #ababab;
-}
-.search_user_info_div div { 
-  text-align: center; 
-  margin-top: 15px;
-}
 
-.search_user_info_div div b { 
-  cursor: pointer; 
-  margin-top: -5px; 
-  font-size: 14px; 
-}
+/*  */
 
-.back_and_close {
-  border-bottom: solid 1px #ababab;
-  display: grid;
-  grid-template-columns: 50% 50%;
-  padding: 8px;
-}
 
-.back_and_close #back_icon { text-align: left; }
-.back_and_close #close_icon { text-align: right; }
-.back_and_close div img { width: 20px; cursor: pointer; }
 
-.Search_div div {
-  text-align: left;
-  margin-left: 120px;
-  font-size: 16px;
-  margin-top: 30px;
-}
 
-.Search_div div h5 {
-    height: 5px;
-    margin-left: -15px;
-}
 
-.Search_div div input {
-  padding: 3px;
-}
 
-input[name=search_id_birthday] { width : 20%; text-align: center;}
 
-input[name=search_id_name], input[name=search_id_email],
-input[name=search_pw_id], input[name=search_pw_email] { 
-    width : 50% 
-}
 
-input[name=search_id_sex] { width : 3.5%; text-align: center; margin-left : 5px }
-
-#search_id_email_div {
-    position: absolute;
-    margin-left: 0px;
-    margin-top: 10px;
-}
-
-input[name=search_id_write_email], 
-input[name=search_pw_write_email] { 
-    margin-left: 5px; 
-    padding: 5px;
-    width: 60%;
-}
-
-input[name=search_id_submit],
-input[name=search_pw_submit] {
-    border: solid 1px #ababab;
-    border-radius: 4px;
-    margin-left: 50px;
-    margin-top: 60px;
-    cursor: pointer;
-    padding: 5px;
-}
-
-.Search_id_result {
-    width: 80%;
-    margin-top: 8%;
-    margin-left: 10%;
-    height: 280px;
-    border: solid 1px #ababab;
-}
-
-.Search_id_result p { color: #ababab; }
-.Search_id_result_div { margin-top: 50px; }
-.Search_id_result_div div { margin-bottom : 50px;}
-.Search_id_result_div h5 { height: 5px; }
-input[name=search_id_back] { margin-top: 20px; cursor: pointer; }
-
-.search_result_div div {
-  margin-top: 70px;
-}
-
-input[name=pw_secret] {
-  padding: 3px;
-  margin-top: 10px;
-  margin-right: 40px;
-}
-
-input[name=pw_secret_submit] {
-  position: absolute;
-  margin: 10px 0px 0px -30px;
-  cursor: pointer;
-}
-
-.change_password_div div { margin-top: 30px; }
-.change_password_div div span { line-height: 0px; }
-.change_password_div div span p { color: #ababab; font-size: 14px; }
-.change_password_div div div {
-  line-height: 0px;
-  margin-top: 50px;
-}
-input[name=change_password_submit] {
-  margin-top: 30px;
-  border: solid 1px #ababab;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.other_div { 
-  margin-top: 300px; 
-  border-top: solid 1px #ababab;
-  display: grid;
-  grid-template-columns: 25% 40% 25%;
-}
-
-.Like { margin : 50px 0px 0px 53%; }
-.Like img { width: 60px; cursor: pointer; }
-.Like h5 { margin-top: 10px; }
-
-#login_close {
-  width: 20px;
-  position: absolute;
-  margin: -60px 0px 0px 150px;
-  cursor: pointer;
-}
-
-#login_button {
-  position: relative;
-  margin-left: 40%;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.view_pre_next_div { margin-top: 20px; }
-.other_div .view_next { margin-left: 95%; width: 100%; }
-.other_div .view_pre { margin-left: 20%; }
-.other_div div p { color : #ababab }
-.other_div .view_next p { margin-left: -25px;}
-.other_div .view_pre p { margin-left: 10px;}
-.view_pre_next_div img { width: 35px; cursor: pointer; }
-
-.view_pre_next_div div {
-  margin-top: 20px;
-  overflow: hidden; 
-  text-overflow: ellipsis; 
-  white-space: nowrap;
-}
-.view_pre_next_div div p {
-  margin-top: 0px;
-}
-.view_pre_next_div div b {
-  cursor: pointer;
-}
-
-.view_pre div { width: 75%; text-align: center; margin-left: -20px; }
-.view_next div { width: 70%; text-align: center; margin-left: -60px; }
-
-.select_category_div { margin: 50px 0px 0px 30%; line-height: 0px; }
-.select_category_div select { padding: 3px; margin-top: -5px; }
-
-.write_option_div {
-  margin-left: 87%;
-}
-
-.write_option_div input,
-#view_list_button {
-  margin-right: 5px;
-  padding: 3px 7px 3px 7px;
-  border-radius: 2px;
-  border : solid 1px #ababab;
-  cursor: pointer;
-  background-color: white;
-}
-
-#view_list_button {
-  position: absolute;
-  margin-left: 50.5%;
-  margin-top: -40px;
-  margin-right: 10px;
-}
-
-.Reply_div {
-  border-top: solid 1px #ababab;
-  margin-top: 40px;
-}
-
-.Reply_div h4 { margin-top: 50px; margin-left: 30px; }
-.Reply_div .Reply_write {
-  height: 150px;
-  border-bottom: solid 1px #ababab;
-}
-
-.Reply_div .Reply_write textarea {
-  width: 80%;
-  padding: 10px;
-  resize: none;
-  font-size: 15px;
-  line-height: 25px;
-  margin-left: 30px;
-}
-
-#reply_submit_button {
-  position: absolute;
-  width: 7%;
-  height: 97px;
-  margin-top: -0px;
-  background-color: white;
-  border: solid 1px #ababab;
-  cursor: pointer;
-}
-
-.Reply_list {
-  min-height: 500px
-}
-
-.Reply_list .reply_list_div .reply_list_gird {
-  display: grid;
-  grid-template-columns: 20% 62% 18%;
-  padding: 15px;
-  border-bottom: solid 1px #ababab;
-}
-
-.reply_list_contents { margin-left: 10px; }
-.reply_list_date { font-size: 12px; color: #ababab; }
-
-.reply_delete_btn {
-  margin-left: 10px;
-  cursor: pointer;
-  background-color: white;
-  border: solid 1px #ababab;
-}
-
-.reply_paging {
-  padding: 5px;
-  margin-bottom: 200px;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.page_num img { width: 25px; position: absolute; }
-.page_num #pre_block { margin: -16px 0px 0px -30px; }
-.page_num #next_block { margin: -16px 0px 0px 5px; }

@@ -12,9 +12,12 @@ class header extends Component {
 
   render() {
     return (
-      <div style={{ textAlign: 'center' }} >
+      <div id='header_div' >
         <Route path='/' />
-        <p style={{ fontSize: '50px', margin: '0px', fontWeight:'bold' }} onClick={() => this._goHead()}>아무개 블로그</p>
+        <p id='header_p'
+          onClick={() => this._goHead()}>
+          <b style={{ cursor: 'pointer' }}>아무개 블로그</b>
+        </p>
       </div>
     );
   }

@@ -8,10 +8,6 @@ class view extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      pre: "https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2018/png/iconmonstr-angel-left-thin.png&r=0&g=0&b=0",
-      next: "https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2018/png/iconmonstr-angel-right-thin.png&r=0&g=0&b=0",
-      pre_block: "https://cdns.iconmonstr.com/wp-content/assets/preview/2017/240/iconmonstr-arrow-64.png",
-      next_block: "https://cdns.iconmonstr.com/wp-content/assets/preview/2017/240/iconmonstr-arrow-63.png"
     }
   }
 
@@ -42,6 +38,7 @@ class view extends Component {
         _getReplyData(board_id)
       }
     }
+
   }
 
   _addViewCnt = async function (board_id) {
@@ -55,8 +52,8 @@ class view extends Component {
   _changeViewPage = function (url) {
     if (url === 'null_pre') {
       return alert('첫번째 게시물입니다.')
-
-    } else if (url === 'null_next') {
+    }
+    else if (url === 'null_next') {
       return alert('마지막 게시물입니다.')
     }
 
@@ -86,7 +83,6 @@ class view extends Component {
 
     const board_id = this.props.match.params.data;
     const { user_id } = this.props;
-    console.log("보드아이디:"+board_id+' 유저아이디: '+user_id);
 
     if (reply === "" || reply.length === 0) {
       document.getElementsByName('write_reply')[0].focus()
@@ -175,17 +171,13 @@ class view extends Component {
   }
 
   render() {
-    const { pre, next, pre_block, next_block } = this.state;
-
     const {
       data, date, pre_view, next_view,
-      reply_num, reply_data, reply_all_page, reply_page,
-      _changePage
+      reply_num, reply_data
     } = this.props
-
-
-    const { _addReply, _changeBlock } = this;
-
+    
+    const { _addReply } = this;
+    
     // 해당 게시물의 id 값
     const board_id = this.props.match.params.data;
 
@@ -202,163 +194,97 @@ class view extends Component {
     }
 
     return (
-      <div className='Write View'>
+      <div style={{ padding: '50px 70px 0px 70px' }}>
         {data.data
           ?
           <div>
-            <div className='write_option_div'>
-              <Link to={modify_url}> <input type='button' value='수정' /> </Link>
-              <input type='button' value='삭제' onClick={() => this._removeView()} />
-            </div>
-
-            <div className='top_title'>
-              <input type='text' id='title_txt' name='title' defaultValue={data.data.data[0].title} readOnly />
-
-              <div className='date_div'>
+            <div className='top_title' >
+              <div style={{ display: 'flex', marginBottom: '5px' }}>
+                <input type='text' id='title_txt' name='title' defaultValue={data.data.data[0].title} readOnly />
+                <Link to={modify_url}> <input type='button' value='수정' id='view_modi_button' /> </Link>
+                <input type='button' value='삭제' id='view_del_button' onClick={() => this._removeView()} />
+              </div>
+              <div style={{ textAlign: 'right', color: '#ababab' }}>
                 {date}
               </div>
             </div>
 
-            <div id='contents_div'
-              dangerouslySetInnerHTML={{ __html: data.data.data[0].contents }}
-            >
-            </div>
+            <div dangerouslySetInnerHTML={{ __html: data.data.data[0].contents }}></div>
 
-            <div className='other_div' style={{ textAlign: 'center' }}>
-              <input type='button' value='목록' id='view_list_button'
-                onClick={() => window.location.href = '/'}
-              />
-
-              <div className='view_pre_next_div view_pre'>
-                {/* left empty */}
-                <img src={pre} alt='pre' onClick={
-                  pre_url
-                    ? () => this._changeViewPage(pre_url)
-                    : () => this._changeViewPage('null_pre')} />
-
-                <div>
-                  {pre_view.length > 0
-                    ? <b onClick={() => this._changeViewPage(pre_url)}>
-                      {pre_view[0].title}
-                    </b>
-                    : null}
-                </div>
+            <div id='view_move'>
+              <div style={{ width: '25%' }}>
+                <b style={{ cursor: 'pointer' }} onClick={pre_url ? () => this._changeViewPage(pre_url)
+                  : () => this._changeViewPage('null_pre')}> 이전 글 </b>
               </div>
 
-              <div className='view_pre_next_div view_next'>
-                {/* right empty */}
-                <img src={next} alt='next' onClick={
-                  next_url
-                    ? () => this._changeViewPage(next_url)
-                    : () => this._changeViewPage('null_next')} />
+              <div style={{ width: '50%' }}>
+                {/* <input type='button' value='목록'
+                  onClick={() => window.location.href = '/'}
+                /> */}
+              </div>
 
-                <div>
-                  {next_view.length > 0
-                    ? <b onClick={() => this._changeViewPage(next_url)}>
-                      {next_view[0].title}
-                    </b>
-                    : null}
-                </div>
+              <div style={{ width: '25%' }}>
+                <b style={{ cursor: 'pointer' }} onClick={next_url ? () => this._changeViewPage(next_url)
+                  : () => this._changeViewPage('null_next')}> 다음 글 </b>
               </div>
             </div>
-            {/* other_div className 끝 */}
 
-            <div className='Reply_div'>
+            <div style={{ borderTop: '1px solid #ababab' }} >
               <h4> 댓글 </h4>
-
-              <div className='Reply_write'>
-                <textarea rows='3' placeholder='100자 이내의 글을 입력해주세요.'
-                  maxLength='100' name='write_reply'
+              <div style={{ display: 'flex' }} >
+                <textarea style={{ width: '90%', resize: 'none' }} rows='3' placeholder='100자 이내의 글을 입력해주세요.'
+                  maxLength='100' name="write_reply"
                 >
                 </textarea>
-
-                <input type='button' value='등록' id='reply_submit_button'
-                  onClick={() => _addReply()}
-                />
+                <div style={{ display: 'flex' }}>
+                  <input type='button' value='등록' style={{ cursor: 'pointer' }}
+                    onClick={() => _addReply()}
+                  />
+                </div>
               </div>
 
-              <div className='Reply_list'>
+              <div>
                 {reply_data.length > 0 && reply_num > 0
-                  ? <div>
-                    <h5> {reply_num} 개의 댓글이 있습니다. </h5>
-
-                    <div className='reply_list_div'>
-                      {reply_data.map((el) => {
-
-                        let id = el.user.id;
-
-                        let date = el.date.slice(2, 10) + ' ' + el.date.slice(11, 16);
-
-                        return (
-                          <div className='reply_list_gird'>
-                            <div style={{ 'fontWeight': 'bold' }}
-                              className='reply_list_id'
-                            >
-                              {/* 아이디 */}
-                              {id}
-                            </div>
-
-                            <div
-                              className='reply_list_contents'
-                              dangerouslySetInnerHTML={{ __html: el.contents }}>
-                              {/* 내용 */}
-                            </div>
-
-                            <div className='reply_list_date'>
-                              {/* 작성일 및 기타 */}
-                              {date}
-
-                              <input type='button' value='삭제' className='reply_delete_btn'
-                                onClick={() => this._removeReply(el.reply_id)}
-                              />
-                            </div>
-                          </div>
-                        )
+                  ?
+                  <div>
+                    <h5> 댓글 목록 </h5>
+                    <div style={{ borderBottom: '1px solid #ababab' }}>
+                      {reply_data.map((el, key) => {
+                        let this_board_id = el.board_id
+                        if(this_board_id == board_id){
+                          let id = el.user.id;
+                          let date = el.date.slice(2, 10) + ' ' + el.date.slice(11, 16);
+  
+                          return (
+                            <li key={key} style={{ listStyle: 'none' }}>
+                              <div className='view_reply'>
+                                <div style={{ width: '15%' }} >
+                                  {id}
+                                </div>
+  
+                                <div style={{ width: '55%' }}
+                                  dangerouslySetInnerHTML={{ __html: el.contents }}>
+                                </div>
+  
+                                <div style={{ width: '20%' }}>
+                                  {date}
+                                </div>
+  
+                                <div style={{ width: '5%' }}>
+                                  <input type='button' value='삭제'
+                                    onClick={() => this._removeReply(el.reply_id)}
+                                  />
+                                </div>
+                              </div>
+                            </li>
+                          )
+                        }
                       })}
                     </div>
-                    {/* reply_list_div 끝 */}
-
-                    <div className='reply_paging'>
-                      {/* 댓글 페이징 시작 */}
-                      <div>
-                        {reply_all_page ?
-                          <ul>
-                            <li className='page_num'>
-                              <img id='pre_block' src={pre_block} alt='num'
-                                onClick={() => _changeBlock('pre')}
-                              />
-                            </li>
-
-                            {reply_all_page.map((el, key) => {
-                              return (
-                                el === reply_page ?
-                                  /* 현재 페이지 */
-                                  <li key={key} className='page_num'>
-                                    <b> {el} </b>
-                                  </li>
-
-                                  : <li key={key} className='page_num'
-                                    onClick={() => _changePage(el, board_id)}
-                                  >
-                                    {el}
-                                  </li>
-                              )
-                            })
-                            }
-                            <li className='page_num'>
-                              <img id='next_block' src={next_block} alt='num'
-                                onClick={() => _changeBlock('next')}
-                              />
-                            </li>
-                          </ul>
-                          : null}
-                      </div>
-                    </div> {/* 댓글 페이징 끝 */}
                   </div>
-
                   : <h5> 작성된 댓글이 없습니다. </h5>}
               </div>
-            </div> {/* Reply_div 끝 */}
+            </div>
           </div>
 
           : null}

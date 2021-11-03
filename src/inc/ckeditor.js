@@ -8,7 +8,7 @@ class ckeditor extends Component {
     const { contents, _getContents } = this.props;
 
     return (
-      <div className='CKEditor'>
+      <div id='ckeditor'>
         <CKEditor
           editor={ClassicEditor}
           data={contents}

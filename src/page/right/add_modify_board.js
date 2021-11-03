@@ -3,7 +3,7 @@ import '../main.css';
 
 import axios from 'axios';
 
-class right_write extends Component {
+class Add_Modify_Board extends Component {
   constructor(props) {
     super(props)
     this.setState = {
@@ -74,10 +74,10 @@ class right_write extends Component {
     const { category, select_category, _selectCategoryData } = this.props;
 
     return (
-      <div>
-        <div className='select_category_div'>
-          <h5> 카테고리 선택 </h5>
-          <select name='select_category' onChange={() => _selectCategoryData()}
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ marginBottom: '100px' }} >
+          <p style={{ fontSize: '30px', marginBottom: '0px' }}> 카테고리 선택 </p>
+          <select style={{ fontFamily: 'retro' }} name='select_category' onChange={() => _selectCategoryData()}
             value={select_category}
           >
             <option value=''> - 카테고리 선택 - </option>
@@ -92,11 +92,11 @@ class right_write extends Component {
               : null}
           </select>
         </div>
-        <div id='post_submit'>
-          <button onClick={() => this._submitBoard()}>
+        <div >
+          <button style={{ fontFamily: 'retro', fontSize: '20px', cursor:'pointer' }} onClick={() => this._submitBoard()}>
             {!this.props.match.params.data
-              ? '포스트 등록'
-              : '포스트 수정'
+              ? '등록'
+              : '수정'
             }
           </button>
         </div>
@@ -105,4 +105,4 @@ class right_write extends Component {
   }
 }
 
-export default right_write;
+export default Add_Modify_Board;

@@ -1,1 +1,1 @@
-export { default as Right_Write } from './right_write';
+export { default as Add_Modify_Board } from './add_modify_board';

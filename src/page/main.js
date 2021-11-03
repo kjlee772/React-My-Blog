@@ -3,7 +3,7 @@ import './main.css';
 import { Route, Switch } from 'react-router-dom';
 
 import { Category } from './left/index.js';
-import { Right_Write } from './right/index.js';
+import { Add_Modify_Board } from './right/index.js';
 import { List, Write, View, } from './index.js';
 
 import axios from 'axios';
@@ -67,14 +67,14 @@ class main extends Component {
     } = this.props;
 
     return (
-      <div className='Mains'>
-        <div id='Mains-left'>
+      <div style={{height:'100%', display:'flex'}}>
+        <div style={{width:'20%'}}>
           <Category _changeCategory={_changeCategory}
             _changeState={_changeState}
             exact />
         </div>
 
-        <div>
+        <div id='main_'>
           <Switch>
             <Route path='/'
               component={this._withProps(List, {
@@ -128,10 +128,10 @@ class main extends Component {
             })} />
         </div>
 
-        <div id='Mains-right'>
+        <div style={{width:'20%'}}>
           <Switch>
             <Route path='/write/modify/:data'
-              component={this._withProps(Right_Write, {
+              component={this._withProps(Add_Modify_Board, {
                 contents: contents,
                 category: category_data,
                 select_category: select_category,
@@ -139,7 +139,7 @@ class main extends Component {
               })} />
 
             <Route path='/write'
-              component={this._withProps(Right_Write, {
+              component={this._withProps(Add_Modify_Board, {
                 contents: contents,
                 category: category_data,
                 select_category: select_category,
