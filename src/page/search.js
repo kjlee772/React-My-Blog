@@ -13,8 +13,8 @@ class search extends Component {
             placeholder='검색어를 입력해주세요.'
             defaultValue={search}
           />
-          <input style={{ fontFamily: 'retro', cursor:'pointer' }} 
-          type='submit' value='검색' />
+          <input style={{ fontFamily: 'retro', cursor: 'pointer' }}
+            type='submit' value='검색' />
         </form>
       </div>
     );

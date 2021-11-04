@@ -5,17 +5,13 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 class ckeditor extends Component {
   render() {
-    const { contents, _getContents } = this.props;
+    const { contents, } = this.props;
 
     return (
-      <div id='ckeditor'>
-        <CKEditor
+      <div id='ckeditor' name='sub_contents' >
+        <CKEditor name='sub_contents'
           editor={ClassicEditor}
           data={contents}
-          onBlur={(event, editor) => {
-            const data = editor.getData();
-            _getContents(data);
-          }}
         />
       </div>
     );

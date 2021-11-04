@@ -1,150 +1,67 @@
 import React, { Component } from 'react';
 import './main.css';
 import { Route, Switch } from 'react-router-dom';
-
 import { Category } from './left/index.js';
 import { Add_Modify_Board } from './right/index.js';
 import { List, Write, View, } from './index.js';
-
-import axios from 'axios';
 
 class main extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      category: '',
       category_change: false,
-      contents: "",
-      title: ""
+      contents: '',
+      title: '',
+      user_id: 1,
+      list_data: [],
+      list_page: 1,
+      list_limit: 10,
+      list_all_page: [],
+      list_search: '',
+      category: [],
+      category_data: [],
+      select_category: '',
     }
   }
-
   _withProps = function (Component, props) {
     return function (matchProps) {
       return <Component {...props} {...matchProps} />
     }
   }
 
-  _changeState = () => {
-    this.setState({ category_change: true })
-  }
-
-  _getContents = (val) => {
-    const contents = val.trim();
-
-    this.setState({ contents: contents })
-  }
-
-  _getTitles = () => {
-    const title = document.getElementsByName('title')[0].value.trim();
-
-    this.setState({ title: title })
-  }
-
-  _getModifyData = async (board_id) => {
-    const getData = await axios('/get/board_data', {
-      method: 'POST',
-      headers: new Headers(),
-      data: { id: board_id }
-    });
-
-    this.setState({
-      title: getData.data.data[0].title,
-      contents: getData.data.data[0].contents
-    })
-  }
-
   render() {
-    const { _changeState, _getContents, _getTitles, _getModifyData } = this;
-    const { contents, title } = this.state;
-    const {
-      list_data, list_all_page, list_search, list_page, _changePage,
-      _changeCategory, user_id, _getData,
-      data, date, pre_view, next_view, _getPreAndNextData,
-      category_data, select_category, _selectCategoryData,
-      reply_data, reply_num, _getReplyData, reply_all_page, reply_page, reply_limit,
-      reply_pre_block, reply_next_block, reply_block, reply_block_limit
-    } = this.props;
+    const { user_id } = this.props;
 
     return (
-      <div style={{height:'100%', display:'flex'}}>
-        <div style={{width:'20%'}}>
-          <Category _changeCategory={_changeCategory}
-            _changeState={_changeState}
-            exact />
+      <div style={{ height: '100%', display: 'flex' }}>
+        <div style={{ width: '20%' }}>
+          <Category exact />
         </div>
 
         <div id='main_'>
           <Switch>
             <Route path='/'
-              component={this._withProps(List, {
-                category: this.state.category,
-                list_data: list_data,
-                list_all_page: list_all_page,
-                list_search: list_search,
-                list_page: list_page,
-                _changePage: _changePage
-              })}
+              component={this._withProps(List, { user_id })}
               exact />
           </Switch>
 
           <Route path='/write/modify/:data'
-            component={this._withProps(Write, {
-              _getContents: _getContents,
-              _getTitles: _getTitles,
-              contents: contents,
-              title: title,
-              _getModifyData: _getModifyData
-            })} />
+            component={this._withProps(Write, { user_id })} exact />
 
           <Route path='/write'
-            component={this._withProps(Write, {
-              _getContents: _getContents,
-              _getTitles: _getTitles,
-              contents: contents,
-              title: title
-            })} exact />
+            component={this._withProps(Write, { user_id })} exact />
 
           <Route path='/view/:data'
-            component={this._withProps(View, {
-              user_id: user_id,
-              data: data,
-              date: date,
-              _getData: _getData,
-              pre_view: pre_view,
-              next_view: next_view,
-              _getPreAndNextData: _getPreAndNextData,
-              reply_data: reply_data,
-              reply_num: reply_num,
-              _getReplyData: _getReplyData,
-              _changePage: _changePage,
-              reply_all_page: reply_all_page,
-              reply_page: reply_page,
-              reply_limit: reply_limit,
-              reply_pre_block: reply_pre_block,
-              reply_next_block: reply_next_block,
-              reply_block: reply_block,
-              reply_block_limit: reply_block_limit,
-            })} />
+            component={this._withProps(View, { user_id })} exact />
         </div>
 
-        <div style={{width:'20%'}}>
+        <div style={{ width: '20%' }}>
           <Switch>
             <Route path='/write/modify/:data'
-              component={this._withProps(Add_Modify_Board, {
-                contents: contents,
-                category: category_data,
-                select_category: select_category,
-                _selectCategoryData: _selectCategoryData
-              })} />
+              component={this._withProps(Add_Modify_Board, { user_id })} />
 
             <Route path='/write'
-              component={this._withProps(Add_Modify_Board, {
-                contents: contents,
-                category: category_data,
-                select_category: select_category,
-                _selectCategoryData: _selectCategoryData
-              })} />
+              component={this._withProps(Add_Modify_Board, { user_id })} />
           </Switch>
         </div>
       </div>

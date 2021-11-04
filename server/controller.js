@@ -6,13 +6,6 @@ moment.tz.setDefault("Asia/Seoul");
 
 const now_date = moment().format('YYYY-MM-DD HH:mm:ss');
 
-const salt = require(path.join(__dirname, 'config', 'db.json'))
-  .salt
-
-const hashing = require(path.join(__dirname, 'config', 'hashing.js'))
-
-const user_ip = require('ip');
-
 const AWS = require('aws-sdk');
 
 AWS.config.loadFromPath(
@@ -21,29 +14,6 @@ AWS.config.loadFromPath(
 
 module.exports = {
   needs: () => upload,
-  api: {
-    sendPw: (req, res) => {
-      const body = req.body;
-      const hash = hashing.enc(body.id, body.password, salt)
-
-      model.api.searchInfo(body, hash, result => {
-        var obj = {};
-        if (result[0]) {
-          obj['suc'] = result[0].dataValues;
-          obj['msg'] = '로그인 성공';
-          obj['ip'] = user_ip.address();
-
-        } else {
-          obj['suc'] = false;
-          obj['msg'] = '로그인 실패';
-        }
-
-        res.send(obj);
-      })
-      console.log('1. salt 값 : ', salt)
-      console.log('3. hash 결과 : ', hash)
-    },
-  },
   add: {
     board: (req, res) => {
       const body = req.body;
@@ -68,15 +38,6 @@ module.exports = {
           obj['msg'] = '이미 있는 카테고리 입니다.';
         }
         res.send(obj)
-      })
-    },
-    user: (req, res) => {
-      const body = req.body;
-
-      const hash_pw = hashing.enc(body.id, body.password, salt);
-
-      model.add.user(body, hash_pw, now_date, result => {
-        res.send(result);
       })
     },
     reply : (req, res) => {
@@ -133,13 +94,6 @@ module.exports = {
           res.send(data)
         })
     },
-    user_info: (req, res) => {
-      const body = req.body;
-
-        model.get.user_info(body, data => {
-          res.send(data)
-        })
-    }
   },
   update: {
     view_cnt: (req, res) => {
@@ -172,37 +126,6 @@ module.exports = {
         res.send(true);
       })
     },
-    password: (req, res) => {
-      const body = req.body;
-      const hash_pw = hashing.enc(body.user_id, body.change_password, salt);
-
-      model.update.password(body, hash_pw, result => {
-        res.send(true)
-      })
-    },
-    // like: (req, res) => {
-    //   const body = req.body;
-
-    //   model.check.like(body, data => {
-    //     // 중복이 아닌 경우
-    //     if(data.length === 0) {
-    //       model.update.like(body, result => {
-    //         res.send(result)
-    //       })
-
-    //     } else {
-    //       // 이미 좋아요를 눌렀을 경우
-    //       if(body.type === 'remove') {
-    //         model.update.like(body, result => {
-    //           res.send(result)
-    //         })
-
-    //       } else {
-    //         res.send(false)
-    //       }
-    //     }
-    //   }) 
-    // },
   },
   delete: {
     category: (req, res) => {
@@ -248,13 +171,4 @@ module.exports = {
       })
     }
   },
-  // check : {
-  //   like : (req, res) => {
-  //     const body = req.body;
-
-  //     model.check.like(body, result => {
-  //       res.send(result);
-  //     })
-  //   }
-  // }
 }

@@ -4,35 +4,19 @@ const {
   Board,
   Category,
   User,
-  // Like,
   Reply,
   Sequelize: { Op }
 } = require('./models');
 sequelize.query('SET NAMES utf8;');
 
 module.exports = {
-  api: {
-    searchInfo: (body, hash, callback) => {
-      User.findAll({
-        where: { [Op.and]: [{ id: body.id, password: hash }] }
-      })
-        .then(data => {
-          callback(data);
-        })
-        .catch(err => {
-          throw err;
-        })
-    },
-  },
   add: {
     board: (body, now_date, callback) => {
       Board.create({
         title: body.title,
         contents: body.contents,
         date: now_date,
-        view_cnt: 0,
         cat_id: body.category,
-        likes: 0,
       })
         .then(() => {
           callback(true)
@@ -55,29 +39,6 @@ module.exports = {
             })
               .then(() => { callback(true) })
               .catch(err => { throw err; })
-          }
-        })
-    },
-    user: (body, hash_pw, now_date, callback) => {
-      User.count({
-        where: { id: body.id }
-      })
-        .then(cnt => {
-          if (cnt > 0) {
-            callback(false);
-          }
-          else {
-            User.create({
-              admin: 'N',
-              id: body.id,
-              password: hash_pw,
-              name: body.name,
-              birthday: body.birthday,
-              sex: body.sex,
-              email: body.email,
-              signup_date: now_date
-            })
-              .then(() => callback(true));
           }
         })
     },
@@ -185,7 +146,8 @@ module.exports = {
         // 전체보기를 클릭했을 경우
         where_2 = 0;
 
-      } else if (body.category) {
+      } 
+      else if (body.category) {
         // 카테고리를 클릭했을 경우
         where_2 = null;
       }
@@ -204,7 +166,6 @@ module.exports = {
           }
         },
         limit: 1
-
       }).then(
         next => {
           result['next'] = next;
@@ -308,13 +269,13 @@ module.exports = {
         .then(() => { callback(true) })
         .catch(err => { throw err; })
     },
-    reply : (body, callback) => {
+    reply: (body, callback) => {
       Reply.destroy({
-          where : { reply_id : body.reply_id }
+        where: { reply_id: body.reply_id }
       })
-      .then( () => { callback(true) })
-      .catch(err => { throw err; })
-  }
+        .then(() => { callback(true) })
+        .catch(err => { throw err; })
+    }
   },
   modify: {
     category: (body, callback) => {
@@ -322,7 +283,6 @@ module.exports = {
         where: { name: body.name }
       })
         .then(cnt => {
-          console.log(cnt);
           if (cnt > 0) {
             callback(false);
           } else {

@@ -12,10 +12,17 @@ class category extends Component {
     this.state = {
       category: [],
       edit: false,
+      category_change: false,
+      category_data: [],
     }
   }
   componentDidMount() {
     this._getCategoryData();
+    this._getAllCategoryData();
+  }
+
+  _changeState = () => {
+    this.setState({ category_change: true })
   }
 
   _getCategoryData = async function () {
@@ -54,7 +61,7 @@ class category extends Component {
 
       if (remove) {
         alert('카테고리 삭제가 완료되었습니다.');
-        this._getCategoryData();
+        window.location.reload();
       }
     }
   }
@@ -84,9 +91,20 @@ class category extends Component {
     }
   }
 
+  // 카테고리 변동
+  _changeCategory = (target) => {
+    sessionStorage.removeItem('page')
+    sessionStorage.setItem('category', target);
+    return window.location.href = '/';
+  }
+
+  _getAllCategoryData = async function () {// 모든 카테고리 데이터 가져오기
+    const getData = await axios('/get/category');
+    this.setState({ category_data: getData.data })
+  }
+
   render() {
     const { category, edit } = this.state;
-    const { _changeCategory } = this.props;
 
     let pre_cat = '';
     if (sessionStorage.getItem('category')) {
@@ -95,16 +113,16 @@ class category extends Component {
     return (
       <div className='Category'>
         <div style={{ textAlign: 'center', overflow: 'hidden' }}>
-          <img id='category_img' src={default_profile_img}  alt='profile_img' />
+          <img id='category_img' src={default_profile_img} alt='profile_img' />
           <Link to='/write'> <input id='category_write_button' type='button' value='글 쓰기' /> </Link>
         </div>
         <ul>
           <li style={{ display: 'flex' }}>
-            <Link className={pre_cat === '' ? "pre_cat" : null} to='/' onClick={() => _changeCategory('')}>
+            <Link className={pre_cat === '' ? "pre_cat" : null} to='/' onClick={() => this._changeCategory('')}>
               <span style={{ fontSize: '25px' }}>전체 보기</span>
             </Link>
             <div>
-              {!edit ? <input className='category_edit'  type='button' value='Edit' onClick={() => this.setState({ edit: !edit })} />
+              {!edit ? <input className='category_edit' type='button' value='Edit' onClick={() => this.setState({ edit: !edit })} />
                 : <input className='category_edit' type='button' value='Done' onClick={() => this.setState({ edit: !edit })} />
               }
             </div>
@@ -115,7 +133,7 @@ class category extends Component {
               if (!edit) {
                 return (
                   <li key={key}>
-                    <Link className={pre_cat === el.id ? "pre_cat" : null} to='/' onClick={() => _changeCategory(el.id)}>
+                    <Link className={pre_cat === el.id ? "pre_cat" : null} to='/' onClick={() => this._changeCategory(el.id)}>
                       {el.name}
                     </Link>
                   </li>
